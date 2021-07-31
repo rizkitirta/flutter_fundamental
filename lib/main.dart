@@ -8,31 +8,35 @@ void main(List<String> args) {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text("My first app"),
+          title: Text("Text Column"),
         ),
-        body: Center(
-            child: Text(
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              backgroundColor: Colors.blueAccent,
-              color: Colors.black,
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 10,
-              decorationStyle: TextDecorationStyle.solid,
-              decoration: TextDecoration.lineThrough,
-              decorationColor: Colors.yellow,
-              decorationThickness: 2),
-        )),
+        body: Stack(
+          children: [
+            Container(
+              height: 400,
+              width: 400,
+              color: Colors.green,
+            ),
+            Container(
+              height: 300,
+              width: 300,
+              color: Colors.blue,
+            ),
+            Container(
+              height: 200,
+              width: 200,
+              color: Colors.yellow,
+            ),
+            Container(
+              height: 100,
+              width: 100,
+              color: Colors.red,
+            ),
+          ],
+        ),
       ),
     );
   }
