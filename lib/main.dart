@@ -13,59 +13,20 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text("List Tile"),
+          title: Text("Widget Image"),
         ),
-        body: ListView(
-          children: [
-            ListTile(
-              title: Text("Rizki Tirta"),
-              subtitle: Text(
-                "This is subtitel aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-              leading: CircleAvatar(),
-              trailing: Text("10.00 PM"),
-              tileColor: Colors.greenAccent,
-              dense: false,
-              contentPadding: EdgeInsets.symmetric(
-                vertical: 30,
-                horizontal: 40,
-              ),
-              // onTap: () {
-              //   return ;
-              // },
-            ),
-            Divider(color: Colors.black),
-            ListTile(
-              title: Text("Rizki Tirta"),
-              subtitle: Text("This is subtitel"),
-              leading: CircleAvatar(),
-              trailing: Text("10.00 PM"),
-            ),
-            Divider(color: Colors.black),
-            ListTile(
-              title: Text("Rizki Tirta"),
-              subtitle: Text("This is subtitel"),
-              leading: CircleAvatar(),
-              trailing: Text("10.00 PM"),
-            ),
-            Divider(color: Colors.black),
-            ListTile(
-              title: Text("Rizki Tirta"),
-              subtitle: Text("This is subtitel"),
-              leading: CircleAvatar(),
-              trailing: Text("10.00 PM"),
-            ),
-            Divider(color: Colors.black),
-            ListTile(
-              title: Text("Rizki Tirta"),
-              subtitle: Text("This is subtitel"),
-              leading: CircleAvatar(),
-              trailing: Text("10.00 PM"),
-            ),
-            Divider(color: Colors.black),
-          ],
+        body: Center(
+          child: Container(
+            width:300,
+            height: 400,
+            color: Colors.blueAccent,
+            child: Image.asset("images/Screenshot_1.png", fit: BoxFit.cover,),
+            // child: Image(
+            //   fit: BoxFit.cover,
+            //   image: AssetImage("images/Screenshot_1.png"),
+            //   //image: NetworkImage("https://picsum.photos/200/300"),
+            //   ),
+          ),
         ),
       ),
     );
