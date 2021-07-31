@@ -1,3 +1,4 @@
+import 'package:faker/faker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -6,29 +7,44 @@ void main(List<String> args) {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
+  var faker = new Faker();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: Text("Widget Image"),
-        ),
-        body: Center(
-          child: Container(
-            width:300,
-            height: 400,
-            color: Colors.blueAccent,
-            child: Image.asset("images/Screenshot_1.png", fit: BoxFit.cover,),
-            // child: Image(
-            //   fit: BoxFit.cover,
-            //   image: AssetImage("images/Screenshot_1.png"),
-            //   //image: NetworkImage("https://picsum.photos/200/300"),
-            //   ),
+          appBar: AppBar(
+            title: Text("Chat Apps"),
           ),
-        ),
+          body: ListView.builder(
+            itemCount: 50,
+            itemBuilder: (context, index) {
+              return ChatItem(
+                imageUrl: "https://picsum.photos/id/$index/200/300",
+                title: faker.person.name(),
+                subtitle: faker.lorem.sentence(),
+              );
+            },
+          )),
+    );
+  }
+}
+
+class ChatItem extends StatelessWidget {
+  final String imageUrl;
+  final String title;
+  final String subtitle;
+
+  const ChatItem({this.imageUrl, this.title, this.subtitle});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: CircleAvatar(
+        backgroundImage: NetworkImage(imageUrl),
       ),
+      title: Text(title),
+      subtitle: Text(subtitle),
+      trailing: Text("10.00 PM"),
     );
   }
 }
