@@ -6,45 +6,53 @@ void main(List<String> args) {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  var faker = new Faker();
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  int counter = 1;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(
-            title: Text("Chat Apps"),
-          ),
-          body: ListView.builder(
-            itemCount: 50,
-            itemBuilder: (context, index) {
-              return ChatItem(
-                imageUrl: "https://picsum.photos/id/$index/200/300",
-                title: faker.person.name(),
-                subtitle: faker.lorem.sentence(),
-              );
-            },
-          )),
-    );
-  }
-}
-
-class ChatItem extends StatelessWidget {
-  final String imageUrl;
-  final String title;
-  final String subtitle;
-
-  const ChatItem({this.imageUrl, this.title, this.subtitle});
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: CircleAvatar(
-        backgroundImage: NetworkImage(imageUrl),
+        appBar: AppBar(
+          title: Text("Chat Apps"),
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(
+              counter.toString(),
+              style: TextStyle(fontSize: 50 + double.parse(counter.toString())),
+            ),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+              RaisedButton(
+                onPressed: () {
+                  if (counter != 1) {
+                    setState(() {
+                      counter--;
+                    });
+                  }
+                  print(counter);
+                },
+                child: Icon(Icons.remove),
+              ),
+              RaisedButton(
+                onPressed: () {
+                  setState(() {
+                    counter++;
+                  });
+                  print(counter);
+                },
+                child: Icon(Icons.add),
+              ),
+            ])
+          ],
+        ),
       ),
-      title: Text(title),
-      subtitle: Text(subtitle),
-      trailing: Text("10.00 PM"),
     );
   }
 }
