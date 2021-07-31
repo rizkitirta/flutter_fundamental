@@ -6,48 +6,66 @@ void main(List<String> args) {
 }
 
 class MyApp extends StatelessWidget {
-  final List<Color> myColor = [
-    Colors.red,
-    Colors.blue,
-    Colors.orange,
-    Colors.amber
-  ];
-
-  final List<Widget> myList = List.generate(
-      20,
-      (index) => Text(
-            "${index + 1}",
-            style: TextStyle(fontSize: 30 + double.parse(index.toString())),
-          ));
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text("List View"),
+          title: Text("List Tile"),
         ),
-        // body: ListView.separated(
-        //   separatorBuilder: (context, index) {
-        //     //return Container(height: 20,);
-        //     return Divider(
-        //       color: Colors.black,
-        //       height: 60,
-        //     );
-        //   },
-        //   itemCount: myColor.length,
-        //   itemBuilder: (context, index) {
-        //     // return Container(
-        //     //   height: 300,
-        //     //   width: 300,
-        //     //   color: myColor[index],
-        //     // );
-
-        //     return Text("Hallo");
-        //   },
-        // )
         body: ListView(
-          children: myList,
+          children: [
+            ListTile(
+              title: Text("Rizki Tirta"),
+              subtitle: Text(
+                "This is subtitel aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+              leading: CircleAvatar(),
+              trailing: Text("10.00 PM"),
+              tileColor: Colors.greenAccent,
+              dense: false,
+              contentPadding: EdgeInsets.symmetric(
+                vertical: 30,
+                horizontal: 40,
+              ),
+              // onTap: () {
+              //   return ;
+              // },
+            ),
+            Divider(color: Colors.black),
+            ListTile(
+              title: Text("Rizki Tirta"),
+              subtitle: Text("This is subtitel"),
+              leading: CircleAvatar(),
+              trailing: Text("10.00 PM"),
+            ),
+            Divider(color: Colors.black),
+            ListTile(
+              title: Text("Rizki Tirta"),
+              subtitle: Text("This is subtitel"),
+              leading: CircleAvatar(),
+              trailing: Text("10.00 PM"),
+            ),
+            Divider(color: Colors.black),
+            ListTile(
+              title: Text("Rizki Tirta"),
+              subtitle: Text("This is subtitel"),
+              leading: CircleAvatar(),
+              trailing: Text("10.00 PM"),
+            ),
+            Divider(color: Colors.black),
+            ListTile(
+              title: Text("Rizki Tirta"),
+              subtitle: Text("This is subtitel"),
+              leading: CircleAvatar(),
+              trailing: Text("10.00 PM"),
+            ),
+            Divider(color: Colors.black),
+          ],
         ),
       ),
     );
