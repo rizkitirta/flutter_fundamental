@@ -19,12 +19,58 @@ class myApp extends StatelessWidget {
               child: Column(
                 children: [
                   TextField(
-                    autocorrect: false,
-                    keyboardType: TextInputType.number,
+                    showCursor: true,
+                    //cursorColor: Colors.yellow,
+                    // cursorWidth: 5,
+                    // cursorHeight: 25,
+                    // cursorRadius: Radius.circular(20),
+
+                    textAlign: TextAlign.start,
+                    textCapitalization: TextCapitalization.none,
+
+                    //style: TextStyle(color: Colors.red, fontSize: 20),
+
+                    decoration: InputDecoration(
+                        icon: Icon(
+                          Icons.person,
+                          size: 35,
+                        ),
+                        border: OutlineInputBorder(),
+                        // prefixIcon: Icon(
+                        //   Icons.person_add,
+                        //   size: 35,
+                        // ),
+                        //prefixText: "Name :",
+                        hintText: "Please input in here..",
+                        labelText: "Username"),
+                  ),
+                  SizedBox(
+                    height: 15,
                   ),
                   TextField(
-                    autocorrect: false,
-                    //autofocus: true,
+                    showCursor: true,
+                    textAlign: TextAlign.start,
+                    textCapitalization: TextCapitalization.none,
+                    obscureText: true,
+
+                    decoration: InputDecoration(
+                      icon: Icon(
+                        Icons.lock,
+                        size: 35,
+                      ),
+                      border: OutlineInputBorder(),
+                      // prefixIcon: Icon(
+                      //   Icons.person_add,
+                      //   size: 35,
+                      // ),
+                      //prefixText: "Name :",
+                      hintText: "Please input in here..",
+                      labelText: "Password",
+                      suffixIcon: IconButton(
+                        icon: Icon(Icons.remove_red_eye),
+                        onPressed: () {} ,
+                      )
+                    ),
                   ),
                 ],
               )),
