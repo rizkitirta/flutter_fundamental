@@ -17,7 +17,14 @@ class App extends StatelessWidget {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  bool status = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,9 +77,25 @@ class HomePage extends StatelessWidget {
         ]),
       ),
       body: Center(
-        child: Text(
-          "Some text here..",
-          style: TextStyle(fontSize: 35),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              child: Switch.adaptive(
+                  value: status,
+                  activeColor: Colors.green,
+                  inactiveThumbColor: Colors.red,
+                  inactiveTrackColor: Colors.black,
+                  //activeThumbImage: ,
+                  onChanged: (value) {
+                    setState(() {
+                      status = !status;
+                    });
+                    print(status);
+                  }),
+            ),
+            Text((status == true) ? "Switch On" : "Switch Off")
+          ],
         ),
       ),
     );
