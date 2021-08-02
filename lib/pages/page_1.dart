@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/page_2.dart';
 
 class PageSatu extends StatelessWidget {
+  static const routeName = '/page_satu';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,7 +12,7 @@ class PageSatu extends StatelessWidget {
       ),
       body: Center(
         child: Text(
-          "Halaman satu",
+          "Halaman home",
           style: TextStyle(fontSize: 30),
         ),
       ),

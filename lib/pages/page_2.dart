@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/page_3.dart';
 
 class PageDua extends StatelessWidget {
+  static const routeName = '/page_dua';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -9,14 +12,30 @@ class PageDua extends StatelessWidget {
         //leading: Container(),
       ),
       body: Center(
-        child: Text(
-          "Halaman dua",
-          style: TextStyle(fontSize: 30),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: Text(
+                      "<<back",
+                      style: TextStyle(fontSize: 30),
+                    )),
+                TextButton(
+                    onPressed: () =>
+                        Navigator.of(context).pushNamed('/page_tiga'),
+                    child: Text(
+                      "next>>",
+                      style: TextStyle(fontSize: 30),
+                    )),
+              ],
+            )
+          ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.arrow_left),
-          onPressed: () => Navigator.of(context).pop()),
     );
   }
 }
