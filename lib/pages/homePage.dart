@@ -5,48 +5,79 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/model/Product.dart';
 
 class HomePage extends StatelessWidget {
-  final Faker faker = Faker();
-
   @override
   Widget build(BuildContext context) {
-    List<Product> dataProduct = List.generate(100, (index) {
-      return Product(
-          "https://picsum.photos/id/$index/200",
-          faker.food.restaurant(),
-          10000 + Random().nextInt(100000),
-          faker.lorem.sentence());
-    });
+    final mediaQueryHeight = MediaQuery.of(context).size.height;
+    final mediaQueryWidth = MediaQuery.of(context).size.width;
+    final appBar = AppBar(
+      title: Text("Home Page"),
+    );
 
+    final bodyHeight = mediaQueryHeight -
+        appBar.preferredSize.height -
+        MediaQuery.of(context).padding.top;
+
+    final bool IsLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Home Page"),
-      ),
-      body: GridView.builder(
-        padding: EdgeInsets.all(10),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, mainAxisSpacing: 10, crossAxisSpacing: 10),
-        itemBuilder: (context, index) {
-          return GridTile(
-            child: Image.network(dataProduct[index].imageURL),
-            footer: Container(
-              alignment: Alignment.center,
-              color: Colors.blue,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(dataProduct[index].judul, style: TextStyle(fontWeight: FontWeight.bold),maxLines: 1,),
-                    Text("Rp ${dataProduct[index].harga}"),
-                    Text(dataProduct[index].deskripsi, style: TextStyle(color: Colors.white),maxLines: 2,)
-                  ],
-                ),
+      appBar: appBar,
+      body: Center(
+        child: (IsLandscape)
+            ? Column(
+                children: [
+                  Container(
+                    height: bodyHeight * 0.5,
+                    width: mediaQueryWidth,
+                    color: Colors.orange,
+                  ),
+                  Container(
+                    height: bodyHeight * 0.5,
+                    color: Colors.grey,
+                    child: GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 5,
+                          crossAxisSpacing: 5),
+                      itemBuilder: (context, index) {
+                        return GridTile(
+                          child: Container(
+                            color: Color.fromARGB(255, Random().nextInt(156),
+                                Random().nextInt(156), Random().nextInt(156)),
+                          ),
+                        );
+                      },
+                      itemCount: 100,
+                    ),
+                  ),
+                ],
+              )
+            : Column(
+                children: [
+                  Container(
+                    height: bodyHeight * 0.3,
+                    width: 400,
+                    color: Colors.orange,
+                  ),
+                  Container(
+                    height: bodyHeight * 0.7,
+                    color: Colors.grey,
+                    child: ListView.builder(
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          leading: CircleAvatar(),
+                          title: Text("Hallo semua.."),
+                        );
+                      },
+                      itemCount: 100,
+                    ),
+                  ),
+                ],
               ),
-            ),
-          );
-        },
-        itemCount: dataProduct.length,
       ),
-      //floatingActionButton: Icon(Icons.add_a_photo),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add_a_photo),
+        onPressed: null,
+      ),
     );
   }
 }
