@@ -46,6 +46,7 @@ class HomePage extends StatelessWidget {
         },
         itemCount: dataProduct.length,
       ),
+      //floatingActionButton: Icon(Icons.add_a_photo),
     );
   }
 }
