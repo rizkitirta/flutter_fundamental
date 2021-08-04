@@ -7,7 +7,6 @@ void main(List<String> args) {
 }
 
 class App extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,34 +16,23 @@ class App extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Flexible & Expanded"),),
-      body: Row(
-        //mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
+        appBar: AppBar(
+          title: Text("Flexible & Expanded"),
+        ),
+        body: Center(
+          child: Container(
             height: 100,
-            color: Colors.green,
-            child: Text("Teks 1 panjang...."),
-          ),
-          Container(
-            height: 100,
-            color: Colors.amber,
-            child: Text("Teks 2 sedang"),
-          ),
-          Flexible(
-            fit: FlexFit.tight,
-            child: Container(
-              height: 100,
-              color: Colors.blue,
-              child: Text("Teks 3"),
+            width: 300,
+            color: Colors.blue,
+            child: FittedBox(
+              alignment: Alignment.topLeft,
+              child: Image.network("https://picsum.photos/500/500"),
+              fit: BoxFit.cover, // fill,contain
             ),
-          )
-        ],
-      ),
-    );
+          ),
+        ));
   }
 }
