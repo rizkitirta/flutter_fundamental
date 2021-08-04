@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/main.dart';
@@ -23,41 +25,41 @@ class HomePage extends StatelessWidget {
     final paddingTop = MediaQuery.of(context).padding.top;
 
     final myAppBar = AppBar(
-      title: Text("Flexible & Expanded"),
+      title: Text("Cuppertino"),
     );
 
     final tinggiBody = tinggi - paddingTop - myAppBar.preferredSize.height;
 
     return Scaffold(
         appBar: myAppBar,
-        body: Container(
-          height: tinggiBody * 0.5,
-          width: lebar,
-          color: Colors.blue,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              myContainer(lebar),
-              myContainer(lebar),
-              myContainer(lebar),
-            ],
-          ),
+        body: Center(
+          child: ElevatedButton(
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return Platform.isIOS
+                          ? CupertinoAlertDialog(
+                              title: Text("Are you sure?"),
+                              content: Text("Ini Akan Menghapus Data Anda"),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {}, child: Text("Yes")),
+                                TextButton(onPressed: () {}, child: Text("No")),
+                              ],
+                            )
+                          : AlertDialog(
+                              title: Text("Are you sure?"),
+                              content: Text("Ini Akan Menghapus Data Anda"),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {}, child: Text("Yes")),
+                                TextButton(onPressed: () {}, child: Text("No")),
+                              ],
+                            );
+                    });
+              },
+              child: Text("Alert Dialog")),
         ));
-  }
-}
-
-class myContainer extends StatelessWidget {
-  final double lebarApp;
-  myContainer(this.lebarApp);
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constrain) {
-      return Container(
-        width: lebarApp * 0.25,
-        height: constrain.maxHeight * 0.2,
-        color: Colors.amber,
-      );
-    });
   }
 }
