@@ -1,6 +1,6 @@
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_application_1/models/product.dart';
+import 'package:flutter_application_1/providers/product.dart';
 import 'package:flutter_application_1/providers/products.dart';
 import 'package:flutter_application_1/widgets/product_item.dart';
 import 'package:provider/provider.dart';
@@ -15,10 +15,9 @@ final allProducts = dataProducts.allProducts;
     return GridView.builder(
       padding: const EdgeInsets.all(10.0),
       itemCount: allProducts.length,
-      itemBuilder: (ctx, i) => ProductItem(
-        allProducts[i].id,
-        allProducts[i].title,
-        allProducts[i].imageUrl,
+      itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
+        value: allProducts[i],
+        child: ProductItem(),
       ),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,

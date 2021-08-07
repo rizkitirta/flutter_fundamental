@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_application_1/models/product.dart';
+import 'package:flutter_application_1/providers/product.dart';
 
 class Products with ChangeNotifier {
   List<Product> _allProducts = List.generate(
