@@ -18,7 +18,7 @@ class Products with ChangeNotifier {
   );
 
   List<Product> get allProducts {
-    return [..._allProducts];
+    return [..._allProducts]; // ... => spread collection
   }
 
   Product findById(productId){
