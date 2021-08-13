@@ -1,88 +1,77 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 void main(List<String> args) {
   runApp(App());
 }
 
 class App extends StatelessWidget {
+  // const App({ Key? key }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: HomePage(),
-    );
+    return MaterialApp(home: HomePage());
   }
 }
 
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
+class HomePage extends StatelessWidget {
+  Future<Map<String, dynamic>> ambildata() async {
+    try {
+      var response = await http.get(Uri.parse("https://reqres.in/api/users/2"));
 
-class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
-  int number = 0;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    // TODO: implement didChangeAppLifecycleState
-    super.didChangeAppLifecycleState(state);
-    print(state);
-
-    switch (state) {
-      case AppLifecycleState.inactive:
-        setState(() {
-          number = 22;
-        });
-        print(number);
-        break;
-      case AppLifecycleState.resumed:
-        setState(() {
-          number = 0;
-        });
-        break;
-      case AppLifecycleState.paused:
-        break;
-      case AppLifecycleState.detached:
-        break;
-      default:
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        var data = jsonDecode(response.body)["data"] as Map<String, dynamic>;
+        // print(data);
+        return data;
+      } else {
+        throw (response.statusCode);
+      }
+    } catch (err) {
+      throw (err);
     }
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[300],
       appBar: AppBar(
-        title: Text("App Lifecycle"),
-        backgroundColor: Colors.green[500],
-      ),
-      body: Center(
-        child: Text(
-          "$number",
-          style: TextStyle(fontSize: 35),
-        ),
+        title: Text("Future Builder"),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            number++;
-          });
+          child: Icon(Icons.add),
+          onPressed: () {
+            ambildata();
+          }),
+      body: FutureBuilder(
+        future: ambildata(),
+        builder: (context, snapshot) {
+          print(snapshot);
+          if (snapshot.error != null) {
+            return Center(
+              child: Text("${snapshot.error}"),
+            );
+          }
+
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  "${snapshot.data["name"]}",
+                  style: TextStyle(fontSize: 35),
+                )
+              ],
+            );
+          }
         },
-        child: Icon(Icons.add),
-        backgroundColor: Colors.green[800],
       ),
     );
   }
