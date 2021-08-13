@@ -1,73 +1,89 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/providers/carts.dart';
-import 'package:flutter_application_1/providers/products.dart';
-import 'package:flutter_application_1/screens/cart_screen.dart';
-import 'package:flutter_application_1/screens/page1.dart';
-import 'package:flutter_application_1/screens/page2.dart';
-import 'package:flutter_application_1/widgets/counter_page.dart';
-import 'package:provider/provider.dart';
 
-import '../screens/products_overview_screen.dart';
-import '../screens/product_detail_screen.dart';
-
-void main() {
-  runApp(MyApp());
+void main(List<String> args) {
+  runApp(App());
 }
 
-class MyApp extends StatelessWidget {
+class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => Cart()),
-        ChangeNotifierProvider(create: (context) => Products()),
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'MyShop',
-        theme: ThemeData(
-          primarySwatch: Colors.indigo,
-          accentColor: Colors.amber,
-          fontFamily: 'Lato',
-        ),
-        home: CountPage(),
-        routes: {
-          ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
-          CartScreen.routeName: (ctx) => CartScreen(),
-          Page1.routeName: (ctx) => Page1(),
-          Page2.routeName: (ctx) => Page2(),
-
-        },
-      ),
+    return MaterialApp(
+      home: HomePage(),
     );
   }
 }
 
-class CountPage extends StatefulWidget {
+class HomePage extends StatefulWidget {
   @override
-  _CountPageState createState() => _CountPageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _CountPageState extends State<CountPage> {
-  int counter = 0;
+class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
+  int number = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // TODO: implement didChangeAppLifecycleState
+    super.didChangeAppLifecycleState(state);
+    print(state);
+
+    switch (state) {
+      case AppLifecycleState.inactive:
+        setState(() {
+          number = 22;
+        });
+        print(number);
+        break;
+      case AppLifecycleState.resumed:
+        setState(() {
+          number = 0;
+        });
+        break;
+      case AppLifecycleState.paused:
+        break;
+      case AppLifecycleState.detached:
+        break;
+      default:
+    }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Widget Lifcycle"),
+        title: Text("App Lifecycle"),
+        backgroundColor: Colors.green[500],
       ),
-      body: CounterPage(counter: counter),
+      body: Center(
+        child: Text(
+          "$number",
+          style: TextStyle(fontSize: 35),
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add,),
         onPressed: () {
           setState(() {
-            counter++;
+            number++;
           });
         },
-        
+        child: Icon(Icons.add),
+        backgroundColor: Colors.green[800],
       ),
     );
   }
 }
-
