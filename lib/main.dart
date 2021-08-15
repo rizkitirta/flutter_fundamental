@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/add_product.dart';
+import 'package:flutter_application_1/pages/add_color.dart';
 import 'package:flutter_application_1/pages/home_page.dart';
-import 'package:flutter_application_1/provider/products.dart';
+import 'package:flutter_application_1/provider/colors.dart';
 import 'package:provider/provider.dart';
 
 void main(List<String> args) {
@@ -14,14 +14,14 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<Products>(
-      create: (context) => Products(),
+    return ChangeNotifierProvider<MultiColor>(
+      create: (context) => MultiColor(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: HomePage(),
         routes: {
           HomePage.routeName: (ctx) => HomePage(),
-          AddProductPage.routeName: (ctx) => AddProductPage(),
+          AddColorPage.routeName: (ctx) => AddColorPage(),
         },
       ),
     );
