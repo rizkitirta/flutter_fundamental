@@ -19,6 +19,7 @@ class _HomePageState extends State<HomePage> {
     // TODO: implement initState
    if (initial) {
       Provider.of<MultiColor>(context, listen: false).initialData();
+     allStatus = Provider.of<MultiColor>(context, listen: false).checkAllStatus();
     initial = false;
    }
     super.initState();
@@ -72,7 +73,6 @@ class _HomePageState extends State<HomePage> {
                             setState(() {
                               e.toggleStatus();
                               allStatus = colorsClass.checkAllStatus();
-
                               print(allStatus);
                             });
                           },

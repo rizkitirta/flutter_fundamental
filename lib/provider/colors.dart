@@ -23,7 +23,7 @@ class MultiColor with ChangeNotifier {
   }
 
   checkAllStatus() {
-    var hasil = _colors.every((element) => element.status = true);
+    var hasil = _colors.every((element) => element.status = element.status);
     return hasil;
   }
 
