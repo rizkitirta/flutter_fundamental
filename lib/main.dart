@@ -1,28 +1,56 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/add_color.dart';
-import 'package:flutter_application_1/pages/home_page.dart';
-import 'package:flutter_application_1/provider/colors.dart';
-import 'package:provider/provider.dart';
 
-void main(List<String> args) {
+import 'package:flutter/material.dart';
+import 'package:flutter_application_1/bloc/color_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+void main() {
   runApp(App());
 }
 
 class App extends StatelessWidget {
-  // const App({ Key? key }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<MultiColor>(
-      create: (context) => MultiColor(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: HomePage(),
-        routes: {
-          HomePage.routeName: (ctx) => HomePage(),
-          AddColorPage.routeName: (ctx) => AddColorPage(),
-        },
+    return MaterialApp(
+      home: BlocProvider<ColorBloc>(
+        child: MainPage(),
+        builder: (context) => ColorBloc(),
+      ),
+    );
+  }
+}
+
+class MainPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    ColorBloc bloc = BlocProvider.of<ColorBloc>(context);
+
+    return Scaffold(
+      floatingActionButton: Row(
+        children: [
+          FloatingActionButton(
+            backgroundColor: Colors.amber,
+            onPressed: () {
+              bloc.dispatch(ColorEvent.to_amber);
+            },
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          FloatingActionButton(
+            backgroundColor: Colors.blue,
+            onPressed: () {
+              bloc.dispatch(ColorEvent.to_blue);
+            },
+          ),
+        ],
+      ),
+      appBar: AppBar(title: Text("Bloc")),
+      body: BlocBuilder<ColorBloc, Color>(
+        builder: (context, newColor) => AnimatedContainer(
+            width: 100,
+            height: 100,
+            color: newColor,
+            duration: Duration(milliseconds: 500)),
       ),
     );
   }
